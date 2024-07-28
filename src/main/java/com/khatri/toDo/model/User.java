@@ -7,10 +7,15 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
-    private String user_name;
+    @Column(name = "user_name")
+    private String userName;
+    @Column(name = "password")
     private String password;
+    @Column(name = "mail")
     private String mail;
 
     public User(){
@@ -27,12 +32,12 @@ public class User {
         this.name = name;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -51,10 +56,10 @@ public class User {
         this.mail = mail;
     }
 
-    public User(Long id, String name, String user_name, String password, String mail) {
+    public User(Long id, String name, String userName, String password, String mail) {
         this.id = id;
         this.name = name;
-        this.user_name = user_name;
+        this.userName = userName;
         this.password = password;
         this.mail = mail;
     }
@@ -64,7 +69,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", user_name='" + user_name + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", mail='" + mail + '\'' +
                 '}';
