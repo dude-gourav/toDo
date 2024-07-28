@@ -1,8 +1,6 @@
 package com.khatri.toDo.controller;
 
-import com.khatri.toDo.model.Task;
 import com.khatri.toDo.model.User;
-import com.khatri.toDo.service.TaskService;
 import com.khatri.toDo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +13,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping
-public class TodoController{
+public class UserController {
     @Autowired
     public UserService userService;
-
-    @Autowired
-    public TaskService taskService;
 
     @GetMapping("/users/{name}")
     public Optional<User> getByName(@PathVariable String name){
@@ -30,10 +25,5 @@ public class TodoController{
     @GetMapping("/users/all")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
-    }
-
-    @GetMapping("/user_id/{userId}/task_id/{taskId}")
-    public Optional<Task> getTaskById(@PathVariable Long userId, @PathVariable Long taskId){
-        return taskService.getTaskById(userId, taskId);
     }
 }
