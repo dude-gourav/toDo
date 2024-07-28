@@ -13,15 +13,26 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user){
-        return userRepository.save(user);
-    }
-
     public Optional<User> getUserByName(String name){
         return userRepository.findByName(name);
     }
 
+    public Optional<User> getUserByUserName(String userName){
+        return userRepository.findByUserName(userName);
+    }
+
     public List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    public User createUser(User user) {
+        if (getUserByUserName(user.getUserName()).isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Long userId){
+        userRepository.deleteById(userId);
     }
 }

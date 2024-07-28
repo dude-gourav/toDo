@@ -1,12 +1,11 @@
 package com.khatri.toDo.controller;
 
+import com.khatri.toDo.dto.TaskRequest;
 import com.khatri.toDo.model.Task;
 import com.khatri.toDo.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,5 +18,31 @@ public class TaskController {
     @GetMapping("/user_id/{userId}/task_id/{taskId}")
     public Optional<Task> getTaskById(@PathVariable Long userId, @PathVariable Long taskId){
         return taskService.getTaskById(userId, taskId);
+    }
+
+    @PostMapping("/add_task")
+    public ResponseEntity<?> createTask(@RequestBody TaskRequest taskRequest){
+        try {
+            Task task = new Task();
+            task.setName(taskRequest.getName());
+            task.setIsActive(taskRequest.getActive());
+            task.setUserId(task.getUserId());
+            return ResponseEntity.ok(taskService.createTask(task));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/remove_task/user_id/{userId}/task_id/{taskId}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long userId, @PathVariable Long taskId){
+        try{
+            taskService.deleteTask(userId, taskId);
+            return ResponseEntity.ok("Task deleted successfully");
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 }

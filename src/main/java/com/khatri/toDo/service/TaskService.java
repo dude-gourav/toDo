@@ -17,7 +17,7 @@ public class TaskService {
         return taskRepository.findByUserIdAndId(userId, taskId);
     }
 
-    public Task saveTask(Task task){ return taskRepository.save(task); }
+    public Task createTask(Task task){ return taskRepository.save(task); }
 
     public List<Task> getAllActiveTask(Long userId) {
         return taskRepository.findByUserIdAndIsActive(userId, Boolean.TRUE);
@@ -25,5 +25,13 @@ public class TaskService {
 
     public List<Task> getAllInactiveTask(Long userId) {
         return taskRepository.findByUserIdAndIsActive(userId, Boolean.FALSE);
+    }
+
+    public void deleteTask(Long userId, Long taskId){
+        if(getTaskById(userId, taskId).isPresent()){
+            taskRepository.deleteById(taskId);
+        }else{
+            throw new IllegalArgumentException("Task Does Not Exist");
+        }
     }
 }

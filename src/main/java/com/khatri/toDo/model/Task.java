@@ -9,8 +9,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "task")
-    private String task;
+    @Column(name = "name")
+    private String name;
     @Column(name = "user_id")
     private Long userId;
     @Column(name = "is_active")
@@ -19,9 +19,9 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long id, String task, Long userId, Boolean isActive) {
+    public Task(Long id, String name, Long userId, Boolean isActive) {
         this.id = id;
-        this.task = task;
+        this.name = name;
         this.userId = userId;
         this.isActive = isActive;
     }
@@ -30,12 +30,12 @@ public class Task {
         return id;
     }
 
-    public String getTask() {
-        return task;
+    public String getName() {
+        return name;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getUserId() {
@@ -58,7 +58,7 @@ public class Task {
     public String toString() {
         return "task{" +
                 "id=" + id +
-                ", task='" + task + '\'' +
+                ", name='" + name + '\'' +
                 ", user_id=" + userId +
                 ", is_active=" + isActive +
                 '}';
