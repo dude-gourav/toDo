@@ -25,8 +25,8 @@ public class TaskController {
         try {
             Task task = new Task();
             task.setName(taskRequest.getName());
-            task.setIsActive(taskRequest.getActive());
-            task.setUserId(task.getUserId());
+            task.setIsActive(taskRequest.getIsActive());
+            task.setUserId(taskRequest.getUserId());
             return ResponseEntity.ok(taskService.createTask(task));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
